@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Executar Todo API",
+      "request": "launch",
+      "mainClass": "com.guilherme.todo.todo_api.TodoApiApplication",
+      "projectName": "todo-api",
+      "env": {
+        "DB_HOST": "localhost",
+        "DB_PORT": "3306",
+        "DB_NAME": "todolist",
+        "DB_USERNAME": "root",
+        "DB_PASSWORD": "131224@Ghb"
+      }
+    }
+  ]
+}
