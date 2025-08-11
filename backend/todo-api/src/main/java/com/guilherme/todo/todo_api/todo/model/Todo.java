@@ -27,7 +27,9 @@ public class Todo {
   private boolean completed = false;
   @Column(nullable = false, updatable = false)
   private LocalDateTime createdAt;
+  @Column(nullable = true)
   private LocalDateTime updatedAt;
+  @Column(nullable = true)
   private LocalDateTime completedAt;
 
   // Default constructor
