@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import CreateTodo from "./components/CreateTodo.jsx";
 import Filter from "./components/Filter.jsx";
+import Modal from "./components/Modal/Modal.jsx";
 import Search from "./components/Search.jsx";
 import Todo from "./components/Todo.jsx";
 function App() {
@@ -25,6 +26,16 @@ function App() {
       isCompleted: false,
     },
   ]);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("Asc");
@@ -98,8 +109,15 @@ function App() {
               completeTodo={completeTodo}
             />
           ))}
+        <div className="create-todo-container">
+          <button className="modal-button" onClick={openModal}></button>
+          {isModalOpen && (
+            <Modal onClose={closeModal}>
+              <CreateTodo addTodo={addTodo} onClose={closeModal} />
+            </Modal>
+          )}
+        </div>
       </div>
-      <CreateTodo addTodo={addTodo} />
     </div>
   );
 }
