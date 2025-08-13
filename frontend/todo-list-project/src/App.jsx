@@ -1,31 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import CreateTodo from "./components/CreateTodo.jsx";
 import Filter from "./components/Filter.jsx";
 import Modal from "./components/Modal/Modal.jsx";
 import Search from "./components/Search.jsx";
 import Todo from "./components/Todo.jsx";
+import api from "./services/api.js";
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: "Criar o projeto",
-      category: "Estudos",
-      isCompleted: false,
-    },
-    {
-      id: 2,
-      text: "Trabalhar no frontend",
-      category: "Trabalho",
-      isCompleted: false,
-    },
-    {
-      id: 3,
-      text: "Trabalhar no backend",
-      category: "Trabalho",
-      isCompleted: false,
-    },
-  ]);
+
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState("Asc");
+  const [filter, setFilter] = useState("All");
+  const [filterCategory, setFilterCategory] = useState("All");
+
+
+
+
+  const fetchTodos = async () => {
+    try {
+      const response = await api.get("/api/todos", {
+        auth:
+        {
+          username: "admin",
+          password: "admin",
+        },
+      });
+
+      console.log("Todos fetched:", response.data);
+      setTodos(response.data);
+    } catch (error) {
+      console.error("Error fetching todos:", error);
+    }
+  }
+
+  const [todos, setTodos] = useState([]);
+  useEffect(() => {
+    fetchTodos();
+  }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -33,14 +44,11 @@ function App() {
     setIsModalOpen(true);
   };
 
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("Asc");
-  const [filter, setFilter] = useState("All");
-  const [filterCategory, setFilterCategory] = useState("All");
 
   const addTodo = (text, category) => {
     const newTodos = [
@@ -52,7 +60,6 @@ function App() {
         isCompleted: false,
       },
     ];
-    9;
     setTodos(newTodos);
   };
   const completeTodo = (id) => {
@@ -69,6 +76,8 @@ function App() {
     );
     setTodos(filteredTodos);
   };
+
+
   return (
     <div className="app">
       <h1>Lista de tarefas</h1>
@@ -82,24 +91,23 @@ function App() {
         setFilterCategory={setFilterCategory}
       />
       <div className="todo-list">
-        {todos
-          .filter((todo) =>
-            filter === "All"
-              ? true
-              : filter === "Completed"
+        {todos.filter((todo) =>
+          filter === "All"
+            ? true
+            : filter === "Completed"
               ? todo.isCompleted
               : !todo.isCompleted
-          )
+        )
+          // .filter((todo) =>
+          //   filterCategory === "All" ? true : todo.category === filterCategory
+          // )
           .filter((todo) =>
-            filterCategory === "All" ? true : todo.category === filterCategory
-          )
-          .filter((todo) =>
-            todo.text.toLowerCase().includes(search.toLocaleLowerCase())
+            todo.title.toLowerCase().includes(search.toLowerCase())
           )
           .sort((a, b) =>
             sort === "Asc"
-              ? a.text.localeCompare(b.text)
-              : b.text.localeCompare(a.text)
+              ? a.title.localeCompare(b.text)
+              : b.title.localeCompare(a.text)
           )
           .map((todo) => (
             <Todo

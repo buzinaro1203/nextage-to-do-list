@@ -12,7 +12,9 @@
         "DB_PORT": "3306",
         "DB_NAME": "todolist",
         "DB_USERNAME": "root",
-        "DB_PASSWORD": "131224@Ghb"
+        "DB_PASSWORD": "131224@Ghb",
+        "ADMIN_USERNAME": "admin",
+        "ADMIN_PASSWORD": "admin"
       }
     }
   ]

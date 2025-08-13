@@ -1,3 +1,4 @@
+
 const Todo = ({ todo, removeTodo, completeTodo }) => {
   return (
     <div
@@ -5,8 +6,8 @@ const Todo = ({ todo, removeTodo, completeTodo }) => {
       style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}
     >
       <div className="content">
-        <p>{todo.text}</p>
-        <p className="category">{todo.category}</p>
+        <p>{todo.title}</p>
+        <p className="category">{todo.description}</p>
       </div>
       <div>
         <button className="edit"></button>

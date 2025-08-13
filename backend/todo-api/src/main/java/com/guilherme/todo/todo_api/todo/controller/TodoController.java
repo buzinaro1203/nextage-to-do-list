@@ -8,8 +8,7 @@ import com.guilherme.todo.todo_api.todo.model.Todo;
 import com.guilherme.todo.todo_api.todo.repository.TodoRepository;
 
 @RestController
-@RequestMapping("/api/todos")
-@CrossOrigin(origins = "*") // Permite acesso do front-end
+@RequestMapping("/api/todos") // Permite acesso do front-end
 public class TodoController {
 
   private final TodoRepository todoRepository;
