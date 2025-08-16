@@ -12,7 +12,11 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
-        .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
+        .csrf(csrf -> csrf.disable()) // desabilita CSRF para Postman
+        .authorizeHttpRequests(auth -> auth
+            .requestMatchers("/api/todos/**").authenticated() // exige login para todos endpoints
+            .anyRequest().permitAll() // outros endpoints liberados
+        )
         .httpBasic(withDefaults())
         .cors(withDefaults());
     return http.build();

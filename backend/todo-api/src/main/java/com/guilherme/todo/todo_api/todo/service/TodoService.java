@@ -10,6 +10,7 @@ import com.guilherme.todo.todo_api.category.repository.CategoryRepository;
 import com.guilherme.todo.todo_api.todo.dto.TodoDTO;
 import com.guilherme.todo.todo_api.todo.model.Todo;
 import com.guilherme.todo.todo_api.todo.repository.TodoRepository;
+import com.guilherme.todo.todo_api.todo.service.TodoConverter;
 
 @Service
 public class TodoService {
@@ -33,8 +34,8 @@ public class TodoService {
     var category = categoryRepository.findById(dto.getCategoryId())
         .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
     Todo todo = TodoConverter.toEntity(dto, category);
-    Todo savedTask = todoRepository.save(todo);
-    return TodoConverter.toDTO(savedTask);
+    Todo savedTodo = todoRepository.save(todo);
+    return TodoConverter.toDTO(savedTodo);
   }
 
   public TodoDTO updateTodo(Long id, TodoDTO dto) {

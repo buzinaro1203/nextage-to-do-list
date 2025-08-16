@@ -28,16 +28,17 @@ public class TodoConverter {
     if (dto == null)
       return null;
 
-    Todo task = new Todo();
-    task.setId(dto.getId());
-    task.setTitle(dto.getTitle());
-    task.setDescription(dto.getDescription());
-    task.setCompleted(dto.isCompleted());
-    task.setCreatedAt(dto.getCreatedAt());
-    task.setUpdatedAt(dto.getUpdatedAt());
-    task.setCompletedAt(dto.getCompletedAt());
-    task.setCategory(category);
+    Todo todo = new Todo();
+    todo.setId(dto.getId());
+    todo.setTitle(dto.getTitle());
+    todo.setDescription(dto.getDescription());
+    todo.setCompleted(dto.isCompleted());
+    todo.setCreatedAt(dto.getCreatedAt());
+    todo.setUpdatedAt(dto.getUpdatedAt());
+    todo.setDueDate(dto.getDueDate());
+    todo.setCompletedAt(dto.getCompletedAt());
+    todo.setCategory(category);
 
-    return task;
+    return todo;
   }
 }
