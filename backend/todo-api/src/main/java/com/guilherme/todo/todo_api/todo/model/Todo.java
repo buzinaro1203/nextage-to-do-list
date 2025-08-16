@@ -1,36 +1,53 @@
 package com.guilherme.todo.todo_api.todo.model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
+import com.guilherme.todo.todo_api.category.model.Category;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import jakarta.persistence.GenerationType;
 
 @Entity
-@Table(name = "todos")
+@Table(name = "todos", schema = "todolist")
 public class Todo {
   // Fields
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   @Column(nullable = false, length = 50)
   private String title;
+
   @Column(length = 255)
   private String description;
 
-  @Column(nullable = false)
+  @Column(nullable = false, updatable = true)
   private boolean completed = false;
+
+  @Column(name = "due_date", nullable = false, updatable = true)
+  private LocalDate dueDate;
+
   @Column(nullable = false, updatable = false)
-  private LocalDateTime createdAt;
+  private LocalDate createdAt;
+
   @Column(nullable = true)
-  private LocalDateTime updatedAt;
+  private LocalDate updatedAt;
+
   @Column(nullable = true)
-  private LocalDateTime completedAt;
+  private LocalDate completedAt;
+
+  // Aqui entra a relação: muitos Todos pertencem a uma Category
+  @ManyToOne
+  @JoinColumn(name = "category_id") // nome da FK na tabela todos
+  private Category category;
 
   // Default constructor
   public Todo() {
@@ -39,14 +56,14 @@ public class Todo {
   // On create and update methods
   @PrePersist
   public void onCreate() {
-    this.createdAt = LocalDateTime.now();
+    this.createdAt = LocalDate.now();
   }
 
   @PreUpdate
   public void onUpdate() {
-    this.updatedAt = LocalDateTime.now();
+    this.updatedAt = LocalDate.now();
     if (this.completed && this.completedAt == null) {
-      this.completedAt = LocalDateTime.now();
+      this.completedAt = LocalDate.now();
     }
     if (!this.completed && this.completedAt != null) { // Reset completedAt if not completed
       this.completedAt = null;
@@ -54,6 +71,22 @@ public class Todo {
   }
 
   // Getters and Setters
+  public LocalDate getDueDate() {
+    return dueDate;
+  }
+
+  public void setDueDate(LocalDate dueDate) {
+    this.dueDate = dueDate;
+  }
+
+  public Category getCategory() {
+    return category;
+  }
+
+  public void setCategory(Category category) {
+    this.category = category;
+  }
+
   public Long getId() {
     return id;
   }
@@ -86,27 +119,27 @@ public class Todo {
     this.completed = completed;
   }
 
-  public LocalDateTime getCreatedAt() {
+  public LocalDate getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(LocalDateTime createdAt) {
+  public void setCreatedAt(LocalDate createdAt) {
     this.createdAt = createdAt;
   }
 
-  public LocalDateTime getUpdatedAt() {
+  public LocalDate getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(LocalDateTime updatedAt) {
+  public void setUpdatedAt(LocalDate updatedAt) {
     this.updatedAt = updatedAt;
   }
 
-  public LocalDateTime getCompletedAt() {
+  public LocalDate getCompletedAt() {
     return completedAt;
   }
 
-  public void setCompletedAt(LocalDateTime completedAt) {
+  public void setCompletedAt(LocalDate completedAt) {
     this.completedAt = completedAt;
   }
 

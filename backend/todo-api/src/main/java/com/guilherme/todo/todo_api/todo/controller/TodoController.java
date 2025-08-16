@@ -1,55 +1,46 @@
 package com.guilherme.todo.todo_api.todo.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import org.springframework.web.bind.annotation.*;
 
-import com.guilherme.todo.todo_api.todo.model.Todo;
-import com.guilherme.todo.todo_api.todo.repository.TodoRepository;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.guilherme.todo.todo_api.todo.service.TodoService;
+import com.guilherme.todo.todo_api.todo.dto.TodoDTO;
 
 @RestController
-@RequestMapping("/api/todos") // Permite acesso do front-end
+@RequestMapping("/api/todos")
 public class TodoController {
 
-  private final TodoRepository todoRepository;
+  private final TodoService todoService;
 
-  public TodoController(TodoRepository todoRepository) {
-    this.todoRepository = todoRepository;
+  public TodoController(TodoService todoService) {
+    this.todoService = todoService;
   }
 
-  // GET - Listar todos
   @GetMapping
-  public List<Todo> getAllTodos() {
-    return todoRepository.findAll();
+  public List<TodoDTO> getAllTodos() {
+    return todoService.getAllTodos();
   }
 
-  // POST - Criar novo
   @PostMapping
-  public Todo createTodo(@RequestBody Todo todo) {
-    return todoRepository.save(todo);
+  public TodoDTO createTask(@RequestBody TodoDTO dto) {
+    return todoService.createTodo(dto);
   }
 
-  // PUT - Atualizar
   @PutMapping("/{id}")
-  public Todo updateTodo(@PathVariable Long id, @RequestBody Todo updatedTodo) {
-    return todoRepository.findById(id)
-        .map(todo -> {
-          todo.setTitle(updatedTodo.getTitle());
-          todo.setDescription(updatedTodo.getDescription());
-          todo.setCompleted(updatedTodo.isCompleted());
-          todo.setUpdatedAt(LocalDateTime.now());
-          if (updatedTodo.isCompleted()) {
-            todo.setCompletedAt(LocalDateTime.now());
-          } else {
-            todo.setCompletedAt(null); // Reset completedAt if not completed
-          }
-          return todoRepository.save(todo);
-        }).orElseThrow(() -> new RuntimeException("Todo não encontrado"));
+  public TodoDTO updateTask(@PathVariable Long id, @RequestBody TodoDTO dto) {
+    return todoService.updateTodo(id, dto);
   }
 
-  // DELETE - Remover
   @DeleteMapping("/{id}")
-  public void deleteTodo(@PathVariable Long id) {
-    todoRepository.deleteById(id);
+  public void deleteTask(@PathVariable Long id) {
+    todoService.deleteTodo(id);
   }
 }

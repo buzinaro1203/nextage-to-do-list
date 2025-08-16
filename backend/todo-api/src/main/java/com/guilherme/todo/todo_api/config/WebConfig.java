@@ -12,6 +12,7 @@ public class WebConfig {
   public WebMvcConfigurer corsConfigurer() {
     return new WebMvcConfigurer() {
       @Override
+
       public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // permite todos os endpoints
             .allowedOrigins("http://localhost:5173") // porta do React
