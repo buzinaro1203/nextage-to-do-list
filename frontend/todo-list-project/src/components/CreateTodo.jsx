@@ -1,42 +1,48 @@
 import { useState } from "react";
 export const CreateTodo = ({ addTodo, onClose }) => {
-  const [value, setValue] = useState("");
-  const [category, setCategory] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [categoryId, setCategoryId] = useState(1); // aju
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!value || !category) return;
-    addTodo(value, category);
-    setValue("");
-    setCategory("");
-    onClose();
+    addTodo({
+      title,
+      description,
+      completed: false,
+      dueDate,
+      categoryId,
+    });
+    onClose(); // fecha o modal
   };
   return (
-    <div className="create-todo modal overlay">
-      <h2>Criar tarefa</h2>
-      <form onSubmit={handleSubmit} action="">
-        <input
-          onChange={(e) => setValue(e.target.value)}
-          type="text"
-          placeholder="Digite o titulo"
-          value={value}
-        />
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          name=""
-          id=""
-        >
-          <option value="">Selecione uma categoria</option>
-          <option value="Trabalho">Trabalho</option>
-          <option value="Pessoal">Pessoal</option>
-          <option value="Estudos">Estudos</option>
-        </select>
-        <button type="submit">Criar</button>
-        <button type="button" onClick={onClose}>
-          Cancelar
-        </button>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Título"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="Descrição"
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      <input
+        type="date"
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
+      />
+      <input
+        type="number"
+        placeholder="Categoria"
+        value={categoryId}
+        onChange={(e) => setCategoryId(Number(e.target.value))}
+      />
+      <button type="submit">Criar</button>
+    </form>
   );
 };
 

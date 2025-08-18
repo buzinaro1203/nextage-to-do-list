@@ -15,9 +15,9 @@ public class WebConfig {
 
       public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // permite todos os endpoints
-            .allowedOrigins("http://localhost:5173", "*") // porta do React
+            .allowedOrigins("http://localhost:5173") // porta do React
             .allowedMethods("GET", "POST", "PUT", "DELETE")
-            .allowedHeaders("*"); // permite todos os cabeçalhos
+            .allowCredentials(true);
       }
     };
   }
