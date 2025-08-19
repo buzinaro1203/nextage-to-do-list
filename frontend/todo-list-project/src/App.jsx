@@ -5,11 +5,12 @@ import Filter from "./components/Filter.jsx";
 import Modal from "./components/Modal/Modal.jsx";
 import Search from "./components/Search.jsx";
 import Todo from "./components/Todo.jsx";
-import { createTodo, deleteTodo, fetchTodos } from "./services/api.js";
+
+import { createTodo, deleteTodo, fetchTodos, alterTodo } from "./services/api.js";
 function App() {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("Asc");
-  const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState("Incompleted");
   const [filterCategory, setFilterCategory] = useState("All");
 
   const [todos, setTodos] = useState([]);
@@ -23,7 +24,7 @@ function App() {
       }
     };
 
-    loadTodos(); // chamamos a função async
+    loadTodos();// chamamos a função async
   }, []);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,6 +36,16 @@ function App() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  const updateTodo = async (todo) => {
+    try {
+      const updatedTodo = await alterTodo(todo.id, todo);
+      setTodos(todos.map((t) => (t.id === todo.id ? updatedTodo : t)));
+    } catch (error) {
+      console.error("Error updating todo:", error);
+    }
+  }
+
 
   const addTodo = async (todoData) => {
     try {
@@ -77,8 +88,8 @@ function App() {
             filter === "All"
               ? true
               : filter === "Completed"
-              ? todo.isCompleted
-              : !todo.isCompleted
+                ? todo.isCompleted
+                : !todo.isCompleted
           )
           // .filter((todo) =>
           //   filterCategory === "All" ? true : todo.category === filterCategory
@@ -97,8 +108,12 @@ function App() {
               todo={todo}
               removeTodo={removeTodo}
               completeTodo={completeTodo}
+              updateTodo={updateTodo}
+
             />
+
           ))}
+
         <div className="create-todo-container">
           <button className="modal-button" onClick={openModal}></button>
           {isModalOpen && (

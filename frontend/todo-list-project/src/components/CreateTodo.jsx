@@ -16,33 +16,44 @@ export const CreateTodo = ({ addTodo, onClose }) => {
     onClose(); // fecha o modal
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Título"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Descrição"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      <input
-        type="date"
-        value={dueDate}
-        onChange={(e) => setDueDate(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Categoria"
-        value={categoryId}
-        onChange={(e) => setCategoryId(Number(e.target.value))}
-      />
-      <button type="submit">Criar</button>
-    </form>
+    <div>
+      <h1>Criar tarefa</h1>
+      <form onSubmit={handleSubmit}>
+        <p>Insira um titulo</p>
+        <input
+          type="text"
+          placeholder="Título"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+        <p>Insira a descrição de sua tarefa</p>
+        <input
+          type="text"
+          placeholder="Descrição"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <p>Insira a data de vencimento dessa tarefa</p>
+        <input
+          type="date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+        />
+        <p>Selecione a categoria</p>
+        <select
+          value={categoryId}
+          onChange={(e) => setCategoryId(Number(e.target.value))}
+        >
+          <option value={0}>Selecione uma categoria</option>
+          <option value={1}>Pessoal</option>
+          <option value={2}>Trabalho</option>
+          <option value={3}>Estudos</option>
+          <option value={4}>Outros</option>
+        </select>
+        <button type="submit">Criar</button>
+      </form>
+    </div>
   );
 };
 

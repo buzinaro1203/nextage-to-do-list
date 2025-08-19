@@ -19,7 +19,7 @@ public class TodoConverter {
         todo.getCategory() != null ? todo.getCategory().getId() : null,
         todo.getCategory() != null ? todo.getCategory().getName() : null,
         todo.getCreatedAt(),
-        todo.getUpdatedAt(),
+        todo.getUpdatedAt() != null ? todo.getUpdatedAt() : null,
         todo.getCompletedAt());
   }
 
@@ -33,8 +33,6 @@ public class TodoConverter {
     todo.setTitle(dto.getTitle());
     todo.setDescription(dto.getDescription());
     todo.setCompleted(dto.isCompleted());
-    todo.setCreatedAt(dto.getCreatedAt());
-    todo.setUpdatedAt(dto.getUpdatedAt());
     todo.setDueDate(dto.getDueDate());
     todo.setCompletedAt(dto.getCompletedAt());
     todo.setCategory(category);

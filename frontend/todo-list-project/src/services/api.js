@@ -20,7 +20,7 @@ export const createTodo = async (todo) => {
   return response.data;
 };
 
-export const updateTodo = async (id, todo) => {
+export const alterTodo = async (id, todo) => {
   const response = await api.put(`/api/todos/${id}`, todo, {});
   return response.data;
 };

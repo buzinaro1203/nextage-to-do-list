@@ -1,4 +1,3 @@
-
 :root {
   /* === Base (modo claro) === */
   --color-bg-light: #ffffff;
@@ -44,6 +43,7 @@
   /* === Neutros extras === */
   --color-border: #dcdcdc;
   --color-divider: #e0e0e0;
+  --color-completed: #6b6b6b;
 }
 
 
@@ -81,7 +81,7 @@ input {
   box-sizing: border-box;
 }
 
- button {
+button {
   background-color: var(--color-bg-dark);
   color: var(--color-text-dark);
   padding: 5px 10px;
@@ -104,7 +104,7 @@ form button:hover {
 }
 
 .todo {
-  background-color:var(--color-text-dark);
+  background-color: var(--color-text-dark);
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 1);
   padding: 10px;
   margin-bottom: 10px;
@@ -114,11 +114,20 @@ form button:hover {
   align-items: center;
 }
 
-.todo p{
+.todo h4 {
+  margin: 0;
+  padding: 5px 0;
+  color: var(--color-text-light);
+  font-size: 20px;
+}
+
+.todo p {
   color: var(--color-text-light);
 }
 
-.complete:hover, .remove:hover, .edit:hover{
+.complete:hover,
+.remove:hover,
+.edit:hover {
   filter: brightness(0.8);
 }
 
@@ -145,7 +154,7 @@ form button:hover {
   border: none;
 }
 
-.edit{
+.edit {
   background-image: url("data:image/svg+xml;utf8,<svg fill='%23d4d4d4' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'><path d='M22.828125 3C22.316375 3 21.804562 3.1954375 21.414062 3.5859375L19 6L24 11L26.414062 8.5859375C27.195062 7.8049375 27.195062 6.5388125 26.414062 5.7578125L24.242188 3.5859375C23.851688 3.1954375 23.339875 3 22.828125 3zM17 8L5.2597656 19.740234C5.2597656 19.740234 6.1775313 19.658 6.5195312 20C6.8615312 20.342 6.58 22.58 7 23C7.42 23.42 9.6438906 23.124359 9.9628906 23.443359C10.281891 23.762359 10.259766 24.740234 10.259766 24.740234L22 13L17 8zM4 23L3.0566406 25.671875A1 1 0 0 0 3 26A1 1 0 0 0 4 27A1 1 0 0 0 4.328125 26.943359A1 1 0 0 0 4.3378906 26.939453L4.3632812 26.931641A1 1 0 0 0 4.3691406 26.927734L7 26L5.5 24.5L4 23z'/></svg>");
   background-repeat: no-repeat;
   background-position: center;
@@ -160,48 +169,71 @@ form button:hover {
 
 
 .create-todo {
-  
-    position: "fixed";
-    top: 0;
-    left: 0;
-    background-color: "rgba(0,0,0,0.5)";
-    display: "flex";
-    justify-content: "center";
-    align-items: "center";
-  
- 
-    background-color: "#fff";
-    padding: 20;
-    border-radius: 8;
-    width: "300px";
-    box-shadow: "0 2px 10px rgba(0,0,0,0.3)",
+
+  position: "fixed";
+  top: 0;
+  left: 0;
+  background-color: "rgba(0,0,0,0.5)";
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+
+
+  background-color: "#fff";
+  padding: 20;
+  border-radius: 8;
+  width: "300px";
+  box-shadow: "0 2px 10px rgba(0,0,0,0.3)",
 
 }
-.filter, .search {
+
+.filter,
+.search {
   border-bottom: 1px solid var(--color-divider);
   margin-bottom: 20px;
   padding-bottom: 20px;
 }
+
 .filter-options {
   display: flex;
   justify-content: space-between;
   gap: 3rem;
 }
+
 .filter-options div {
   flex: 1 1 0;
   flex-direction: column;
 }
 
+.todocompleted {
+  background-color: var(--color-completed);
+  color: var(--color-text-light);
+  text-decoration: line-through;
+
+  .edit,
+  .remove {
+    display: none;
+  }
+
+  .complete {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-undo-icon lucide-undo'><path d='M3 7v6h6'/><path d='M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13'/></svg>");
+    background-color: var(--color-completed);
+  }
+}
+
 input,
-select {
+select,
+textarea {
   appearance: none;
-  -webkit-appearance: none; /* Safari */
-  -moz-appearance: none;    /* Firefox */
+  -webkit-appearance: none;
+  /* Safari */
+  -moz-appearance: none;
+  /* Firefox */
 
   background-color: var(--color-text-dark);
   color: var(--color-text-light);
 
- 
+
 
   width: 100%;
   padding: 10px;
@@ -212,23 +244,25 @@ select {
 
 }
 
-select{
+select {
   background-image: url('data:image/svg+xml;charset=UTF-8,<svg fill="%23333" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 1em;
   cursor: pointer;
 }
+
 .create-todo-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
   position: relative;
-  
+
 }
+
 .modal-button {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill-rule='evenodd' d='M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z'/></svg>");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 1em;
@@ -238,4 +272,5 @@ select{
   border: none;
   cursor: pointer;
   transition: background-color 0.3s;
-  border-radius: 50% }
+  border-radius: 50%
+}

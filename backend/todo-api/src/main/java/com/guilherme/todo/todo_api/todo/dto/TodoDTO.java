@@ -71,7 +71,7 @@ public class TodoDTO {
     this.categoryId = categoryId;
     this.categoryName = categoryName;
     this.createdAt = LocalDate.now(); // Definindo data de criação como hoje
-    this.updatedAt = LocalDate.now(); // Definindo data de atualização como hoje
+    this.updatedAt = updatedAt; // Definindo data de atualização como hoje
     this.completedAt = completed ? LocalDate.now() : null; // Se estiver completo,
 
   }
