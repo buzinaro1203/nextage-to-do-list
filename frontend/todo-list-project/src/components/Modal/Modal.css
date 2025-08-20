@@ -19,7 +19,7 @@
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   /* profundidade */
-  width: 90%;
+  width: 50%;
   max-width: 500px;
   position: relative;
   z-index: 1001;

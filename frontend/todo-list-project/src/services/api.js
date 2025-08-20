@@ -28,3 +28,12 @@ export const alterTodo = async (id, todo) => {
 export const deleteTodo = async (id) => {
   await api.delete(`/api/todos/${id}`, {});
 };
+
+export const completeTodo = async (id, todo) => {
+  const updatedTodo = {
+    ...todo,
+    completed: !todo.completed,
+  };
+  const response = await api.put(`/api/todos/${id}`, updatedTodo);
+  return response.data
+};

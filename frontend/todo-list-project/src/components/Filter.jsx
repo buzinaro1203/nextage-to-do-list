@@ -25,6 +25,8 @@ const Filter = ({
           <select value={sort} onChange={(e) => setSort(e.target.value)}>
             <option value="Asc">A-Z</option>
             <option value="Desc">Z-A</option>
+            <option value="CreatedDate">Data de criação</option>
+            <option value="DueDate">Data de vencimento</option>
           </select>
         </div>
         <div>

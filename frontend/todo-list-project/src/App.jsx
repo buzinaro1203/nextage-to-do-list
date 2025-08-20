@@ -6,7 +6,7 @@ import Modal from "./components/Modal/Modal.jsx";
 import Search from "./components/Search.jsx";
 import Todo from "./components/Todo.jsx";
 
-import { createTodo, deleteTodo, fetchTodos, alterTodo } from "./services/api.js";
+import { createTodo, deleteTodo, fetchTodos, alterTodo, completeTodo } from "./services/api.js";
 function App() {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("Asc");
@@ -55,12 +55,16 @@ function App() {
       console.error("Error creating todo:", error);
     }
   };
-  const completeTodo = (id) => {
-    const newTodos = [...todos];
-    newTodos.map((todo) =>
-      todo.id === id ? (todo.isCompleted = !todo.isCompleted) : todo
-    );
-    setTodos(newTodos);
+  const handleComplete = async (todo) => {
+    try {
+      const updatedTodo = await completeTodo(todo.id, todo); // chama API
+      setTodos((prev) =>
+        prev.map((t) => (t.id === todo.id ? updatedTodo : t))
+      )
+
+    } catch (error) {
+      console.error("Erro ao completar todo: ", error)
+    }
   };
   const removeTodo = async (id) => {
     try {
@@ -84,35 +88,41 @@ function App() {
       />
       <div className="todo-list">
         {todos
-          .filter((todo) =>
-            filter === "All"
+          .filter((todo) => {
+            if (!todo) return false;
+            return filter === "All"
               ? true
               : filter === "Completed"
-                ? todo.isCompleted
-                : !todo.isCompleted
+                ? todo.completed
+                : todo.completed === false
+          })
+          .filter((todo) =>
+            filterCategory === "All" ? true : todo.categoryName === filterCategory
           )
-          // .filter((todo) =>
-          //   filterCategory === "All" ? true : todo.category === filterCategory
-          // )
           .filter((todo) =>
             todo.title.toLowerCase().includes(search.toLowerCase())
           )
           .sort((a, b) =>
             sort === "Asc"
-              ? a.title.localeCompare(b.text)
-              : b.title.localeCompare(a.text)
+              ? a.title.localeCompare(b.title)
+              : sort === "Desc"
+                ? b.title.localeCompare(a.title)
+                : sort === "CreatedDate"
+                  ? new Date(a.createdAt) - new Date(b.createdAt)
+                  : new Date(a.dueDate) - new Date(b.dueDate)
           )
           .map((todo) => (
             <Todo
               key={todo.id}
               todo={todo}
               removeTodo={removeTodo}
-              completeTodo={completeTodo}
+              completeTodo={handleComplete}
               updateTodo={updateTodo}
 
             />
 
           ))}
+
 
         <div className="create-todo-container">
           <button className="modal-button" onClick={openModal}></button>

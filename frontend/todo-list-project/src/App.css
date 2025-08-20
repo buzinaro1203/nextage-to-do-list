@@ -163,10 +163,41 @@ form button:hover {
   width: 24px;
   height: 24px;
   border: none;
-
-
+}
+.modal-remove {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
+.modal-content-remove {
+  background-color:var(--color-bg-dark);
+  padding: 20px;
+  border-radius: 10px;
+  text-align:center;
+  p {
+    color: var(--color-text-dark);
+    span{
+      font-weight: bold;
+    }
+  }
+  .confirm-button{
+    background-color: var(--color-surface-dark);
+  }.confirm-button:hover{
+    background-color: var(--color-accent-green-dark);
+  }
+   .cancel-button{
+    background-color: var(--color-surface-dark);
+  }.cancel-button:hover{
+    background-color: var(--color-accent-red-dark);
+  }
+
+}
 
 .create-todo {
 
