@@ -41,7 +41,7 @@ export default function EditTodo({ todo, onClose, onUpdate }) {
             onChange={(e) => setDescription(e.target.value)}
           />
         </label>
-        <label >
+        <label>
           Categoria:
           <select
             value={categoryId}
@@ -52,7 +52,6 @@ export default function EditTodo({ todo, onClose, onUpdate }) {
             <option value="3">Estudos</option>
             <option value="4">Outros</option>
           </select>
-
         </label>
         <label>
           Data de Vencimento:
