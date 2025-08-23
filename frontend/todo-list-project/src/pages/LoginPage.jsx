@@ -1,62 +1,66 @@
 import { useState } from "react";
-import "./LoginPage.css";
+import styles from "./LoginPage.module.css";
 
 function LoginPage() {
   const [isLogin, setIsLogin] = useState(true); // true = tela de login, false = tela de cadastro
 
   return (
-    <div className="login-body">
-      <div className="login-card">
+    <div className={styles.container}>
+      <div className={styles.loginCard}>
         {isLogin ? (
           // FORM DE LOGIN
-          <form>
+          <form className={styles.form}>
             <h3>Login</h3>
-            <div>
-              <label>Email</label>
-              <input type="text" />
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Email</label>
+              <input className={styles.input} type="text" />
             </div>
-            <div>
-              <label>Senha</label>
-              <input type="password" />
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Senha</label>
+              <input className={styles.input} type="password" />
             </div>
-            <div>
-              <button type="submit">Login</button>
+            <div className={styles.formGroup}>
+              <button className={styles.button} type="submit">
+                Login
+              </button>
             </div>
           </form>
         ) : (
-          <form>
+          <form className={styles.form}>
             <h3>Criar Conta</h3>
-            <div>
-              <label>Nome</label>
-              <input type="text" />
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Nome</label>
+              <input className={styles.input} type="text" />
             </div>
-            <div>
-              <label>Email</label>
-              <input type="text" />
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Email</label>
+              <input className={styles.input} type="text" />
             </div>
-            <div>
-              <label>Senha</label>
-              <input type="password" />
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Senha</label>
+              <input className={styles.input} type="password" />
             </div>
-            <div>
-              <label>Confirme sua senha</label>
-              <input type="password" />
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Confirme sua senha</label>
+              <input className={styles.input} type="password" />
             </div>
-            <div>
-              <button type="submit">Cadastrar</button>
+            <div className={styles.formGroup}>
+              <button className={styles.button} type="submit">
+                Cadastrar
+              </button>
             </div>
           </form>
         )}
-        <div className="span-container">
+        <div className={styles.buttonContainer}>
           {isLogin ? (
             <>
-              <button onClick={() => setIsLogin(false)} className="link">
+              <button onClick={() => setIsLogin(false)} className={styles.link}>
                 Crie sua conta
               </button>
-              <button className="link">Esqueceu sua senha?</button>
+              <button className={styles.link}>Esqueceu sua senha?</button>
             </>
           ) : (
-            <button onClick={() => setIsLogin(true)} className="link">
+            <button onClick={() => setIsLogin(true)} className={styles.link}>
               Já tem conta? Faça login
             </button>
           )}
