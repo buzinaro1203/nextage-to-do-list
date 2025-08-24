@@ -9,11 +9,15 @@ import Todo from "../components/todo/Todo.jsx";
 import {
   alterTodo,
   completeTodo,
+  createApi,
   createTodo,
   deleteTodo,
   fetchTodos,
 } from "../api/api.js";
 function App() {
+  const email = localStorage.getItem("email");
+  const password = localStorage.getItem("password");
+  const api = email && password ? createApi(email, password) : null;
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("Asc");
   const [filter, setFilter] = useState("Incompleted");
@@ -21,17 +25,16 @@ function App() {
 
   const [todos, setTodos] = useState([]);
   useEffect(() => {
-    // Criamos uma função async dentro do useEffect
     const loadTodos = async () => {
       try {
-        setTodos(await fetchTodos());
+        fetchTodos(api).then(setTodos);
       } catch (error) {
         console.error("Error fetching todos:", error);
       }
     };
 
-    loadTodos(); // chamamos a função async
-  }, []);
+    loadTodos();
+  }, []); // adiciona api como dependência
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,7 +48,7 @@ function App() {
 
   const updateTodo = async (todo) => {
     try {
-      const updatedTodo = await alterTodo(todo.id, todo);
+      const updatedTodo = await alterTodo(api, todo.id, todo);
       setTodos(todos.map((t) => (t.id === todo.id ? updatedTodo : t)));
     } catch (error) {
       console.error("Error updating todo:", error);
@@ -54,7 +57,7 @@ function App() {
 
   const addTodo = async (todoData) => {
     try {
-      const savedTodo = await createTodo(todoData); // chama a API
+      const savedTodo = await createTodo(api, todoData); // chama a API
       setTodos([...todos, savedTodo]); // adiciona o resultado do backend no estado
     } catch (error) {
       console.error("Error creating todo:", error);
@@ -62,7 +65,7 @@ function App() {
   };
   const handleComplete = async (todo) => {
     try {
-      const updatedTodo = await completeTodo(todo.id, todo); // chama API
+      const updatedTodo = await completeTodo(api, todo.id, todo); // chama API
       setTodos((prev) => prev.map((t) => (t.id === todo.id ? updatedTodo : t)));
     } catch (error) {
       console.error("Erro ao completar todo: ", error);
@@ -70,7 +73,7 @@ function App() {
   };
   const removeTodo = async (id) => {
     try {
-      await deleteTodo(id);
+      await deleteTodo(api, id);
       setTodos(todos.filter((todo) => todo.id !== id));
     } catch (error) {
       console.error("Erro ao deletar todo:", error);

@@ -14,11 +14,13 @@ public class WebConfig {
       @Override
 
       public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // permite todos os endpoints
-            .allowedOrigins("http://localhost:5173") // porta do React
+        registry.addMapping("/**")
+            .allowedOrigins("http://localhost:5173")
             .allowedMethods("GET", "POST", "PUT", "DELETE")
+            .allowedHeaders("Authorization", "Content-Type") // essencial para Basic Auth
             .allowCredentials(true);
       }
+
     };
   }
 }
