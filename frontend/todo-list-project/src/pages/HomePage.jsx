@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../App.css";
-import Modal from "../components/modal/Modal.jsx";
+import Modal from "../components/modal/Modal";
 import Filter from "../components/SearchAndFilter/Filter.jsx";
 import Search from "../components/SearchAndFilter/Search.jsx";
 import CreateTodo from "../components/todo/CreateTodo.jsx";
@@ -98,8 +98,8 @@ function App() {
             return filter === "All"
               ? true
               : filter === "Completed"
-              ? todo.completed
-              : todo.completed === false;
+                ? todo.completed
+                : todo.completed === false;
           })
           .filter((todo) =>
             filterCategory === "All"
@@ -113,10 +113,10 @@ function App() {
             sort === "Asc"
               ? a.title.localeCompare(b.title)
               : sort === "Desc"
-              ? b.title.localeCompare(a.title)
-              : sort === "CreatedDate"
-              ? new Date(a.createdAt) - new Date(b.createdAt)
-              : new Date(a.dueDate) - new Date(b.dueDate)
+                ? b.title.localeCompare(a.title)
+                : sort === "CreatedDate"
+                  ? new Date(a.createdAt) - new Date(b.createdAt)
+                  : new Date(a.dueDate) - new Date(b.dueDate)
           )
           .map((todo) => (
             <Todo
