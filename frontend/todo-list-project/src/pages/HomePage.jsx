@@ -6,6 +6,7 @@ import Search from "../components/searchAndFilter/Search.jsx";
 import CreateTodo from "../components/todo/CreateTodo.jsx";
 import Todo from "../components/todo/Todo.jsx";
 
+import { useNavigate } from "react-router-dom";
 import {
   alterTodo,
   completeTodo,
@@ -14,7 +15,6 @@ import {
   deleteTodo,
   fetchTodos,
 } from "../api/api.js";
-import { useNavigate } from "react-router-dom";
 function App() {
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
@@ -26,9 +26,19 @@ function App() {
   const [filterCategory, setFilterCategory] = useState("All");
 
   const [todos, setTodos] = useState([]);
+
+  // dentro do componente App
+  const handleLogout = () => {
+    // Remove email e password do localStorage
+    localStorage.removeItem("email");
+    localStorage.removeItem("password");
+
+    // Redireciona para login
+    navigate("/login");
+  };
   useEffect(() => {
     if (api == null) {
-      navigate("/login")
+      navigate("/login");
     }
     const loadTodos = async () => {
       try {
@@ -86,7 +96,11 @@ function App() {
   };
   return (
     <div className="app">
-      <h1>Lista de tarefas</h1>
+      <div className="header">
+        <h1>Lista de tarefas</h1>
+        <button onClick={handleLogout} className="logout-button"></button>
+      </div>
+
       <Search search={search} setSearch={setSearch} />
       <Filter
         filter={filter}
@@ -103,8 +117,8 @@ function App() {
             return filter === "All"
               ? true
               : filter === "Completed"
-                ? todo.completed
-                : todo.completed === false;
+              ? todo.completed
+              : todo.completed === false;
           })
           .filter((todo) =>
             filterCategory === "All"
@@ -118,10 +132,10 @@ function App() {
             sort === "Asc"
               ? a.title.localeCompare(b.title)
               : sort === "Desc"
-                ? b.title.localeCompare(a.title)
-                : sort === "CreatedDate"
-                  ? new Date(a.createdAt) - new Date(b.createdAt)
-                  : new Date(a.dueDate) - new Date(b.dueDate)
+              ? b.title.localeCompare(a.title)
+              : sort === "CreatedDate"
+              ? new Date(a.createdAt) - new Date(b.createdAt)
+              : new Date(a.dueDate) - new Date(b.dueDate)
           )
           .map((todo) => (
             <Todo
