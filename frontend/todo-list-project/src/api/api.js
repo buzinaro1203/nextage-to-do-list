@@ -1,9 +1,11 @@
 import axios from "axios";
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL; // Variável de ambiente do Vercel
+
 export const createApi = (email, password) => {
   const token = btoa(`${email}:${password}`);
   return axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: BASE_URL,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Basic ${token}`,
@@ -14,12 +16,11 @@ export const createApi = (email, password) => {
 
 export const registerUser = async (name, email, password) => {
   const response = await axios.post(
-    "http://localhost:8080/api/users/register",
-    {
-      name,
-      email,
-      password,
-    }
+    `${BASE_URL}/api/users/register`, {
+    name,
+    email,
+    password,
+  }
   );
   return response.data;
 };
