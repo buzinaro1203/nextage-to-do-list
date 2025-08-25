@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "../App.css";
 import Modal from "../components/Modal/Modal.jsx";
-import Filter from "../components/SearchAndFilter/Filter.jsx";
-import Search from "../components/SearchAndFilter/Search.jsx";
+import Filter from "../components/searchAndFilter/Filter.jsx";
+import Search from "../components/searchAndFilter/Search.jsx";
 import CreateTodo from "../components/todo/CreateTodo.jsx";
 import Todo from "../components/todo/Todo.jsx";
 
