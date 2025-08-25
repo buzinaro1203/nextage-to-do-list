@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../App.css";
-import Modal from "components/modal/Modal.jsx";
+import Modal from "../components/modal/Modal.jsx";
 import Filter from "../components/SearchAndFilter/Filter.jsx";
 import Search from "../components/SearchAndFilter/Search.jsx";
 import CreateTodo from "../components/todo/CreateTodo.jsx";
