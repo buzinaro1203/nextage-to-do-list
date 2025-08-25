@@ -15,7 +15,7 @@ export const createApi = (email, password) => {
 };
 
 export const registerUser = async (name, email, password) => {
-  const response = await axios.post(`${BASE_URL}/users/register`, {
+  const response = await axios.post(`${BASE_URL}/api/users/register`, {
     name,
     email,
     password,
@@ -28,28 +28,28 @@ export const registerUser = async (name, email, password) => {
 // ----------------------
 
 export const fetchTodos = async (api) => {
-  const response = await api.get("/todos");
+  const response = await api.get("/api/todos");
   console.log("Fetched todos:", response.data);
   return response.data;
 };
 
 export const createTodo = async (api, todo) => {
   console.log("Creating Todo", todo);
-  const response = await api.post("/todos", todo);
+  const response = await api.post("/api/todos", todo);
   return response.data;
 };
 
 export const alterTodo = async (api, id, todo) => {
-  const response = await api.put(`/todos/${id}`, todo);
+  const response = await api.put(`/api/todos/${id}`, todo);
   return response.data;
 };
 
 export const deleteTodo = async (api, id) => {
-  await api.delete(`/todos/${id}`);
+  await api.delete(`/api/todos/${id}`);
 };
 
 export const completeTodo = async (api, id, todo) => {
   const updatedTodo = { ...todo, completed: !todo.completed };
-  const response = await api.put(`/todos/${id}`, updatedTodo);
+  const response = await api.put(`/api/todos/${id}`, updatedTodo);
   return response.data;
 };
