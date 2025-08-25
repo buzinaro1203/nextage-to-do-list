@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createApi, fetchTodos, registerUser } from "../api/api";
+import { hideLoading, showLoading } from "../utils/Loading";
 import styles from "./LoginPage.module.css";
 
 function LoginPage() {
@@ -26,6 +27,7 @@ function LoginPage() {
 
     try {
       if (password === confirmPassword) {
+        showLoading();
         await registerUser(name, email, password);
 
         changeForm();
@@ -34,6 +36,8 @@ function LoginPage() {
       }
     } catch (err) {
       alert(err.response?.data?.message || "Erro ao registrar usuário");
+    } finally {
+      hideLoading();
     }
   };
 
@@ -45,6 +49,7 @@ function LoginPage() {
 
     try {
       const api = createApi(email, password);
+      showLoading();
       await fetchTodos(api); // testa autenticação
       // salva no localStorage
       localStorage.setItem("email", email);
@@ -53,10 +58,13 @@ function LoginPage() {
       navigate("/");
     } catch (err) {
       console.log(err);
+
       alert(
         err.response?.data?.message ||
           "Erro ao fazer login, verifique suas credenciais"
       );
+    } finally {
+      hideLoading();
     }
   };
   return (

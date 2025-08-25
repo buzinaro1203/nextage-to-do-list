@@ -5,6 +5,7 @@ import Filter from "../components/searchAndFilter/Filter.jsx";
 import Search from "../components/searchAndFilter/Search.jsx";
 import CreateTodo from "../components/todo/CreateTodo.jsx";
 import Todo from "../components/todo/Todo.jsx";
+import { hideLoading, showLoading } from "../utils/Loading.js";
 
 import { useNavigate } from "react-router-dom";
 import {
@@ -36,15 +37,19 @@ function App() {
     // Redireciona para login
     navigate("/login");
   };
+
   useEffect(() => {
     if (api == null) {
       navigate("/login");
     }
     const loadTodos = async () => {
       try {
+        showLoading();
         fetchTodos(api).then(setTodos);
       } catch (error) {
         console.error("Error fetching todos:", error);
+      } finally {
+        hideLoading();
       }
     };
 
@@ -63,35 +68,47 @@ function App() {
 
   const updateTodo = async (todo) => {
     try {
+      showLoading();
       const updatedTodo = await alterTodo(api, todo.id, todo);
       setTodos(todos.map((t) => (t.id === todo.id ? updatedTodo : t)));
     } catch (error) {
       console.error("Error updating todo:", error);
+    } finally {
+      hideLoading();
     }
   };
 
   const addTodo = async (todoData) => {
     try {
+      showLoading();
       const savedTodo = await createTodo(api, todoData); // chama a API
       setTodos([...todos, savedTodo]); // adiciona o resultado do backend no estado
     } catch (error) {
       console.error("Error creating todo:", error);
+    } finally {
+      hideLoading();
     }
   };
   const handleComplete = async (todo) => {
     try {
+      showLoading();
       const updatedTodo = await completeTodo(api, todo.id, todo); // chama API
       setTodos((prev) => prev.map((t) => (t.id === todo.id ? updatedTodo : t)));
     } catch (error) {
       console.error("Erro ao completar todo: ", error);
+    } finally {
+      hideLoading();
     }
   };
   const removeTodo = async (id) => {
     try {
+      showLoading();
       await deleteTodo(api, id);
       setTodos(todos.filter((todo) => todo.id !== id));
     } catch (error) {
       console.error("Erro ao deletar todo:", error);
+    } finally {
+      hideLoading();
     }
   };
   return (
