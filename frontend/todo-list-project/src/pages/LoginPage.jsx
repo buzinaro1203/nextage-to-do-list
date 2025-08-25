@@ -40,6 +40,8 @@ function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    console.log("Email:", email);
+    console.log("Password:", password);
 
     try {
       const api = createApi(email, password);
