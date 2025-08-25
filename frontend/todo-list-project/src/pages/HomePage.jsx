@@ -14,7 +14,9 @@ import {
   deleteTodo,
   fetchTodos,
 } from "../api/api.js";
+import { useNavigate } from "react-router-dom";
 function App() {
+  const navigate = useNavigate;
   const email = localStorage.getItem("email");
   const password = localStorage.getItem("password");
   const api = email && password ? createApi(email, password) : null;
@@ -25,6 +27,9 @@ function App() {
 
   const [todos, setTodos] = useState([]);
   useEffect(() => {
+    if (api == null) {
+      navigate("/login")
+    }
     const loadTodos = async () => {
       try {
         fetchTodos(api).then(setTodos);
