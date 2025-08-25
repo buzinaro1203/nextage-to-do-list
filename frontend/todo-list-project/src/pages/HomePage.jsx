@@ -16,7 +16,7 @@ import {
 } from "../api/api.js";
 import { useNavigate } from "react-router-dom";
 function App() {
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const email = localStorage.getItem("email");
   const password = localStorage.getItem("password");
   const api = email && password ? createApi(email, password) : null;
