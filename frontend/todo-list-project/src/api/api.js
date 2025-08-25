@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://nextage-to-do-list.onrender.com"; // Variável de ambiente do Vercel
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const createApi = (email, password) => {
   const token = btoa(`${email}:${password}`);
@@ -15,13 +15,11 @@ export const createApi = (email, password) => {
 };
 
 export const registerUser = async (name, email, password) => {
-  const response = await axios.post(
-    `${BASE_URL}/api/users/register`, {
+  const response = await axios.post(`${BASE_URL}/api/users/register`, {
     name,
     email,
     password,
-  }
-  );
+  });
   return response.data;
 };
 
@@ -36,6 +34,7 @@ export const fetchTodos = async (api) => {
 };
 
 export const createTodo = async (api, todo) => {
+  console.log("Creating Todo", todo);
   const response = await api.post("/api/todos", todo);
   return response.data;
 };
