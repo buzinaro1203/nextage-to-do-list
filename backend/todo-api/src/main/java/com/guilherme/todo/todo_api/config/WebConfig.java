@@ -15,7 +15,7 @@ public class WebConfig {
 
       public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-            .allowedOrigins("http://localhost:5173")
+            .allowedOrigins("http://localhost:5173", "https://nextage-to-do-list-gtt6.vercel.app/")
             .allowedMethods("GET", "POST", "PUT", "DELETE")
             .allowedHeaders("Authorization", "Content-Type") // essencial para Basic Auth
             .allowCredentials(true);

@@ -50,6 +50,7 @@ function LoginPage() {
 
       navigate("/");
     } catch (err) {
+      console.log(err);
       alert(
         err.response?.data?.message ||
           "Erro ao fazer login, verifique suas credenciais"
