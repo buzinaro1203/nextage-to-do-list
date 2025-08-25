@@ -4,12 +4,15 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.guilherme.todo.todo_api.category.model.Category;
 import com.guilherme.todo.todo_api.category.repository.CategoryRepository;
 import com.guilherme.todo.todo_api.todo.dto.TodoDTO;
 import com.guilherme.todo.todo_api.todo.model.Todo;
 import com.guilherme.todo.todo_api.todo.repository.TodoRepository;
+import com.guilherme.todo.todo_api.user.model.User;
 
 @Service
 public class TodoService {
@@ -22,6 +25,27 @@ public class TodoService {
     this.categoryRepository = categoryRepository;
   }
 
+  public List<TodoDTO> getTodosForUser(User user) {
+    return todoRepository.findByUser(user)
+        .stream()
+        .map(TodoConverter::toDTO)
+        .collect(Collectors.toList());
+  }
+
+  public TodoDTO createTodoForUser(TodoDTO dto, User user) {
+    Category category = null;
+
+    if (dto.getCategoryId() != null) {
+      category = categoryRepository.findById(dto.getCategoryId())
+          .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+    }
+    Todo todo = TodoConverter.toEntity(dto, category, user);
+    todo.setCreatedAt(LocalDate.now());
+    todo.setUpdatedAt(null);
+    Todo savedTodo = todoRepository.save(todo);
+    return TodoConverter.toDTO(savedTodo);
+  }
+
   public List<TodoDTO> getAllTodos() {
     return todoRepository.findAll()
         .stream()
@@ -29,19 +53,14 @@ public class TodoService {
         .collect(Collectors.toList());
   }
 
-  public TodoDTO createTodo(TodoDTO dto) {
-    var category = categoryRepository.findById(dto.getCategoryId())
-        .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
-    Todo todo = TodoConverter.toEntity(dto, category);
-    todo.setCreatedAt(LocalDate.now());
-    todo.setUpdatedAt(null);
-    Todo savedTodo = todoRepository.save(todo);
-    return TodoConverter.toDTO(savedTodo);
-  }
-
-  public TodoDTO updateTodo(Long id, TodoDTO dto) {
+  // Atualiza um todo de um usuário (valida que pertence ao usuário)
+  public TodoDTO updateTodo(Long id, TodoDTO dto, User user) {
     return todoRepository.findById(id)
         .map(todo -> {
+          if (!todo.getUser().getId().equals(user.getId())) {
+            throw new RuntimeException("Não autorizado");
+          }
+
           todo.setTitle(dto.getTitle());
           todo.setDescription(dto.getDescription());
           todo.setCompleted(dto.isCompleted());
@@ -49,25 +68,24 @@ public class TodoService {
           todo.setDueDate(dto.getDueDate());
 
           if (dto.getCategoryId() != null) {
-            var category = categoryRepository.findById(dto.getCategoryId())
+            Category category = categoryRepository.findById(dto.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
             todo.setCategory(category);
           }
 
-          if (dto.isCompleted()) {
-            todo.setCompletedAt(LocalDate.now());
-          } else {
-            todo.setCompletedAt(null);
-          }
-
+          todo.setCompletedAt(dto.isCompleted() ? LocalDate.now() : null);
           return TodoConverter.toDTO(todoRepository.save(todo));
         }).orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
   }
 
-  public void deleteTodo(Long id) {
-    if (!todoRepository.existsById(id)) {
-      throw new RuntimeException("Tarefa não encontrada");
+  // Deleta um todo de um usuário
+  public void deleteTodo(Long id, User user) {
+    Todo todo = todoRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Tarefa não encontrada"));
+    if (!todo.getUser().getId().equals(user.getId())) {
+      throw new RuntimeException("Não autorizado");
     }
     todoRepository.deleteById(id);
   }
+
 }

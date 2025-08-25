@@ -2,6 +2,7 @@ package com.guilherme.todo.todo_api.todo.service;
 
 import com.guilherme.todo.todo_api.todo.dto.TodoDTO;
 import com.guilherme.todo.todo_api.todo.model.Todo;
+import com.guilherme.todo.todo_api.user.model.User;
 import com.guilherme.todo.todo_api.category.model.Category;
 
 public class TodoConverter {
@@ -20,11 +21,13 @@ public class TodoConverter {
         todo.getCategory() != null ? todo.getCategory().getName() : null,
         todo.getCreatedAt(),
         todo.getUpdatedAt() != null ? todo.getUpdatedAt() : null,
-        todo.getCompletedAt());
+        todo.getCompletedAt(),
+        todo.getUser().getId(),
+        todo.getUser().getEmail());
   }
 
   // Converte TodoDTO -> Todo, recebendoyCategory category correspondente
-  public static Todo toEntity(TodoDTO dto, Category category) {
+  public static Todo toEntity(TodoDTO dto, Category category, User user) {
     if (dto == null)
       return null;
 
@@ -36,6 +39,7 @@ public class TodoConverter {
     todo.setDueDate(dto.getDueDate());
     todo.setCompletedAt(dto.getCompletedAt());
     todo.setCategory(category);
+    todo.setUser(user);
 
     return todo;
   }

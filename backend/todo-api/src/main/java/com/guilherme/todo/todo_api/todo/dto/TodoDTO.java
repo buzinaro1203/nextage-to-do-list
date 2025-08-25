@@ -11,6 +11,36 @@ public class TodoDTO {
   private LocalDate createdAt;
   private LocalDate updatedAt;
   private LocalDate completedAt;
+  private Long userId;
+  private String userEmail;
+
+  /**
+   * @return the userId
+   */
+  public Long getUserId() {
+    return userId;
+  }
+
+  /**
+   * @param userId the userId to set
+   */
+  public void setUserId(Long userId) {
+    this.userId = userId;
+  }
+
+  /**
+   * @return the userEmail
+   */
+  public String getUserEmail() {
+    return userEmail;
+  }
+
+  /**
+   * @param userEmail the userEmail to set
+   */
+  public void setUserEmail(String userEmail) {
+    this.userEmail = userEmail;
+  }
 
   /**
    * @return the createdAt
@@ -62,7 +92,8 @@ public class TodoDTO {
   }
 
   public TodoDTO(Long id, String title, String description, boolean completed, LocalDate dueDate, Long categoryId,
-      String categoryName, LocalDate createdAt, LocalDate updatedAt, LocalDate completedAt) {
+      String categoryName, LocalDate createdAt, LocalDate updatedAt, LocalDate completedAt, long userId,
+      String userEmail) {
     this.id = id;
     this.title = title;
     this.description = description;
@@ -73,6 +104,8 @@ public class TodoDTO {
     this.createdAt = LocalDate.now(); // Definindo data de criação como hoje
     this.updatedAt = updatedAt; // Definindo data de atualização como hoje
     this.completedAt = completed ? LocalDate.now() : null; // Se estiver completo,
+    this.userId = userId;
+    this.userEmail = userEmail;
 
   }
 

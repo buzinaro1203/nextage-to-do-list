@@ -1,6 +1,17 @@
 package com.guilherme.todo.todo_api.user.model;
 
-import jakarta.persistence.*;
+import java.util.List;
+
+import com.guilherme.todo.todo_api.todo.model.Todo;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users") // "user" é reservado em alguns bancos
@@ -18,6 +29,17 @@ public class User {
 
     @Column(nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Todo> todos;
+
+    public List<Todo> getTodos() {
+        return todos;
+    }
+
+    public void settodos(List<Todo> todos) {
+        this.todos = todos;
+    }
 
     public User() {
     }

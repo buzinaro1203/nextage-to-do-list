@@ -3,9 +3,11 @@ package com.guilherme.todo.todo_api.todo.model;
 import java.time.LocalDate;
 
 import com.guilherme.todo.todo_api.category.model.Category;
+import com.guilherme.todo.todo_api.user.model.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -43,6 +45,24 @@ public class Todo {
 
   @Column(nullable = true)
   private LocalDate completedAt;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  private User user;
+
+  /**
+   * @return the user
+   */
+  public User getUser() {
+    return user;
+  }
+
+  /**
+   * @param user the user to set
+   */
+  public void setUser(User user) {
+    this.user = user;
+  }
 
   // Aqui entra a relação: muitos Todos pertencem a uma Category
   @ManyToOne

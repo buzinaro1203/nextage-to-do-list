@@ -2,16 +2,13 @@ package com.guilherme.todo.todo_api.todo.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 import com.guilherme.todo.todo_api.todo.service.TodoService;
+import com.guilherme.todo.todo_api.user.model.User;
+import com.guilherme.todo.todo_api.user.service.UserService;
 import com.guilherme.todo.todo_api.todo.dto.TodoDTO;
 
 @RestController
@@ -19,28 +16,42 @@ import com.guilherme.todo.todo_api.todo.dto.TodoDTO;
 public class TodoController {
 
   private final TodoService todoService;
+  private final UserService userService;
 
-  public TodoController(TodoService todoService) {
+  public TodoController(TodoService todoService, UserService userService) {
     this.todoService = todoService;
+    this.userService = userService;
   }
 
   @GetMapping
-  public List<TodoDTO> getAllTodos() {
-    return todoService.getAllTodos();
+  public List<TodoDTO> getTodos(@AuthenticationPrincipal UserDetails userDetails) {
+    User user = userService.findByEmail(userDetails.getUsername())
+        .orElseThrow(() -> new RuntimeException("User not found"));
+    return todoService.getTodosForUser(user);
   }
 
   @PostMapping
-  public TodoDTO createTask(@RequestBody TodoDTO dto) {
-    return todoService.createTodo(dto);
+  public TodoDTO createTodo(@RequestBody TodoDTO todoDTO,
+      @AuthenticationPrincipal UserDetails userDetails) {
+    User user = userService.findByEmail(userDetails.getUsername())
+        .orElseThrow(() -> new RuntimeException("User not found"));
+    return todoService.createTodoForUser(todoDTO, user);
   }
 
   @PutMapping("/{id}")
-  public TodoDTO updateTask(@PathVariable Long id, @RequestBody TodoDTO dto) {
-    return todoService.updateTodo(id, dto);
+  public TodoDTO updateTodo(@PathVariable Long id,
+      @RequestBody TodoDTO dto,
+      @AuthenticationPrincipal UserDetails userDetails) {
+    User user = userService.findByEmail(userDetails.getUsername())
+        .orElseThrow(() -> new RuntimeException("User not found"));
+    return todoService.updateTodo(id, dto, user);
   }
 
   @DeleteMapping("/{id}")
-  public void deleteTask(@PathVariable Long id) {
-    todoService.deleteTodo(id);
+  public void deleteTodo(@PathVariable Long id,
+      @AuthenticationPrincipal UserDetails userDetails) {
+    User user = userService.findByEmail(userDetails.getUsername())
+        .orElseThrow(() -> new RuntimeException("User not found"));
+    todoService.deleteTodo(id, user);
   }
 }
