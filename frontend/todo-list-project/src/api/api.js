@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL; // Variável de ambiente do Vercel
+const BASE_URL = "https://nextage-to-do-list.onrender.com"; // Variável de ambiente do Vercel
 
 export const createApi = (email, password) => {
   const token = btoa(`${email}:${password}`);
