@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ExpandedTodo from "./EditTodo.jsx";
 
-import Modal from "../modal/Modal.jsx";
+import Modal from "../Modal/Modal.jsx";
 
 const Todo = ({ todo, removeTodo, completeTodo, updateTodo }) => {
   const formatDate = (dateString) => {
