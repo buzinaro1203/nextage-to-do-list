@@ -1,4 +1,4 @@
-package com.guilherme.todo.todo_api.user.service;
+package com.guilherme.todo.todo_api.service;
 
 import java.util.Optional;
 
@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.guilherme.todo.todo_api.user.dto.UserDto;
-import com.guilherme.todo.todo_api.user.model.User;
-import com.guilherme.todo.todo_api.user.repository.UserRepository;
+import com.guilherme.todo.todo_api.dto.UserDto;
+import com.guilherme.todo.todo_api.model.User;
+import com.guilherme.todo.todo_api.repository.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {

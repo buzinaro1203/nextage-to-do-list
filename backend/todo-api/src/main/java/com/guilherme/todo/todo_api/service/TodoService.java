@@ -1,18 +1,17 @@
-package com.guilherme.todo.todo_api.todo.service;
+package com.guilherme.todo.todo_api.service;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.guilherme.todo.todo_api.category.model.Category;
-import com.guilherme.todo.todo_api.category.repository.CategoryRepository;
-import com.guilherme.todo.todo_api.todo.dto.TodoDTO;
-import com.guilherme.todo.todo_api.todo.model.Todo;
-import com.guilherme.todo.todo_api.todo.repository.TodoRepository;
-import com.guilherme.todo.todo_api.user.model.User;
+import com.guilherme.todo.todo_api.model.Category;
+import com.guilherme.todo.todo_api.model.User;
+import com.guilherme.todo.todo_api.repository.CategoryRepository;
+import com.guilherme.todo.todo_api.dto.TodoDTO;
+import com.guilherme.todo.todo_api.model.Todo;
+import com.guilherme.todo.todo_api.repository.TodoRepository;
 
 @Service
 public class TodoService {

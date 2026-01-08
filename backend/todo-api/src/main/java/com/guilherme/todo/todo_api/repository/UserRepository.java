@@ -1,7 +1,9 @@
-package com.guilherme.todo.todo_api.user.repository;
+package com.guilherme.todo.todo_api.repository;
 
-import com.guilherme.todo.todo_api.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.guilherme.todo.todo_api.model.User;
+
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {

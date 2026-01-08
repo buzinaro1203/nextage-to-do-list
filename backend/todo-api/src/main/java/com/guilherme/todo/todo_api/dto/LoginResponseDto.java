@@ -1,6 +1,6 @@
-package com.guilherme.todo.todo_api.user.dto;
+package com.guilherme.todo.todo_api.dto;
 
-import com.guilherme.todo.todo_api.user.model.User;
+import com.guilherme.todo.todo_api.model.User;
 
 public record LoginResponseDto(
 

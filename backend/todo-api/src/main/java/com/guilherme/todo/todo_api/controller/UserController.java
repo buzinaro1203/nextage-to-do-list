@@ -1,12 +1,11 @@
-package com.guilherme.todo.todo_api.user.controller;
+package com.guilherme.todo.todo_api.controller;
 
-import com.guilherme.todo.todo_api.user.dto.LoginDto;
-import com.guilherme.todo.todo_api.user.dto.LoginResponseDto;
-import com.guilherme.todo.todo_api.user.dto.UserDto;
-import com.guilherme.todo.todo_api.user.dto.UserResponseDto;
-import com.guilherme.todo.todo_api.user.model.User;
-
-import com.guilherme.todo.todo_api.user.service.UserService;
+import com.guilherme.todo.todo_api.dto.LoginDto;
+import com.guilherme.todo.todo_api.dto.LoginResponseDto;
+import com.guilherme.todo.todo_api.dto.UserDto;
+import com.guilherme.todo.todo_api.dto.UserResponseDto;
+import com.guilherme.todo.todo_api.model.User;
+import com.guilherme.todo.todo_api.service.UserService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

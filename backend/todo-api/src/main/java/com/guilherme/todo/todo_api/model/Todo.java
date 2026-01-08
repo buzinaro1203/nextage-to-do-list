@@ -1,9 +1,6 @@
-package com.guilherme.todo.todo_api.todo.model;
+package com.guilherme.todo.todo_api.model;
 
 import java.time.LocalDate;
-
-import com.guilherme.todo.todo_api.category.model.Category;
-import com.guilherme.todo.todo_api.user.model.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

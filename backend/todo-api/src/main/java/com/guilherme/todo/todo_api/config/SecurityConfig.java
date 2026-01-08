@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.guilherme.todo.todo_api.user.service.UserService;
+import com.guilherme.todo.todo_api.service.UserService;
 
 @Configuration
 public class SecurityConfig {

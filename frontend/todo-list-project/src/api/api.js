@@ -10,7 +10,6 @@ export const createApi = (email, password) => {
       "Content-Type": "application/json",
       Authorization: `Basic ${token}`,
     },
-    // sem withCredentials
   });
 };
 

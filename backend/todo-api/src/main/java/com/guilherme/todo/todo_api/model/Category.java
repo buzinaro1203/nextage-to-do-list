@@ -1,8 +1,6 @@
-package com.guilherme.todo.todo_api.category.model;
+package com.guilherme.todo.todo_api.model;
 
 import java.util.List;
-
-import com.guilherme.todo.todo_api.todo.model.Todo;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
