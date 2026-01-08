@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import com.guilherme.todo.todoapi.dto.TodoDTO;
+import com.guilherme.todo.todoapi.exception.ResourceNotFoundException;
 import com.guilherme.todo.todoapi.model.User;
 import com.guilherme.todo.todoapi.service.TodoService;
 import com.guilherme.todo.todoapi.service.UserService;
@@ -25,16 +26,14 @@ public class TodoController {
 
   @GetMapping
   public List<TodoDTO> getTodos(@AuthenticationPrincipal UserDetails userDetails) {
-    User user = userService.findByEmail(userDetails.getUsername())
-        .orElseThrow(() -> new RuntimeException("User not found"));
+    User user = getAuthenticatedUser(userDetails);
     return todoService.getTodosForUser(user);
   }
 
   @PostMapping
   public TodoDTO createTodo(@RequestBody TodoDTO todoDTO,
       @AuthenticationPrincipal UserDetails userDetails) {
-    User user = userService.findByEmail(userDetails.getUsername())
-        .orElseThrow(() -> new RuntimeException("User not found"));
+    User user = getAuthenticatedUser(userDetails);
     return todoService.createTodoForUser(todoDTO, user);
   }
 
@@ -42,16 +41,20 @@ public class TodoController {
   public TodoDTO updateTodo(@PathVariable Long id,
       @RequestBody TodoDTO dto,
       @AuthenticationPrincipal UserDetails userDetails) {
-    User user = userService.findByEmail(userDetails.getUsername())
-        .orElseThrow(() -> new RuntimeException("User not found"));
+    User user = getAuthenticatedUser(userDetails);
     return todoService.updateTodo(id, dto, user);
   }
 
   @DeleteMapping("/{id}")
   public void deleteTodo(@PathVariable Long id,
       @AuthenticationPrincipal UserDetails userDetails) {
-    User user = userService.findByEmail(userDetails.getUsername())
-        .orElseThrow(() -> new RuntimeException("User not found"));
+    User user = getAuthenticatedUser(userDetails);
     todoService.deleteTodo(id, user);
+  }
+
+  private User getAuthenticatedUser(UserDetails userDetails) {
+    User user = userService.findByEmail(userDetails.getUsername())
+        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    return user;
   }
 }

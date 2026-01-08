@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.guilherme.todo.todoapi.dto.UserDto;
+import com.guilherme.todo.todoapi.exception.UserAlreadyExistsException;
 import com.guilherme.todo.todoapi.mapper.UserMapper;
 import com.guilherme.todo.todoapi.model.User;
 import com.guilherme.todo.todoapi.repository.UserRepository;
@@ -27,6 +28,9 @@ public class UserService implements UserDetailsService {
     }
 
     public User register(UserDto dto) {
+        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
+            throw new UserAlreadyExistsException("User already exists");
+        }
         User user = userMapper.toEntity(dto);
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         return userRepository.save(user);
