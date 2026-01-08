@@ -1,4 +1,4 @@
-package com.guilherme.todo.todo_api.dto;
+package com.guilherme.todo.todoapi.dto;
 
 public class UserDto {
     private String email;

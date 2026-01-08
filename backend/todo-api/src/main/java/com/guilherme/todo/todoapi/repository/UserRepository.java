@@ -1,8 +1,8 @@
-package com.guilherme.todo.todo_api.repository;
+package com.guilherme.todo.todoapi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.guilherme.todo.todo_api.model.User;
+import com.guilherme.todo.todoapi.model.User;
 
 import java.util.Optional;
 

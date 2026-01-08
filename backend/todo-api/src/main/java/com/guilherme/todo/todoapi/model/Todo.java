@@ -1,4 +1,4 @@
-package com.guilherme.todo.todo_api.model;
+package com.guilherme.todo.todoapi.model;
 
 import java.time.LocalDate;
 

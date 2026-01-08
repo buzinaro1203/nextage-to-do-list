@@ -1,13 +1,15 @@
-package com.guilherme.todo.todo_api.service;
+package com.guilherme.todo.todoapi.mapper;
 
-import com.guilherme.todo.todo_api.dto.TodoDTO;
-import com.guilherme.todo.todo_api.model.Todo;
-import com.guilherme.todo.todo_api.model.Category;
-import com.guilherme.todo.todo_api.model.User;
+import com.guilherme.todo.todoapi.dto.TodoDTO;
+import com.guilherme.todo.todoapi.model.Category;
+import com.guilherme.todo.todoapi.model.Todo;
+import com.guilherme.todo.todoapi.model.User;
+import org.springframework.stereotype.Component;
 
-public class TodoConverter {
+@Component
+public class TodoMapper {
   // Converte Task -> TodoDTO
-  public static TodoDTO toDTO(Todo todo) {
+  public TodoDTO toDTO(Todo todo) {
     if (todo == null)
       return null;
 
@@ -26,8 +28,7 @@ public class TodoConverter {
         todo.getUser().getEmail());
   }
 
-  // Converte TodoDTO -> Todo, recebendoyCategory category correspondente
-  public static Todo toEntity(TodoDTO dto, Category category, User user) {
+  public Todo toEntity(TodoDTO dto, Category category, User user) {
     if (dto == null)
       return null;
 

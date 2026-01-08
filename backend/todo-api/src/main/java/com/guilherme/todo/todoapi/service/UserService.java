@@ -1,4 +1,4 @@
-package com.guilherme.todo.todo_api.service;
+package com.guilherme.todo.todoapi.service;
 
 import java.util.Optional;
 
@@ -8,26 +8,27 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.guilherme.todo.todo_api.dto.UserDto;
-import com.guilherme.todo.todo_api.model.User;
-import com.guilherme.todo.todo_api.repository.UserRepository;
+import com.guilherme.todo.todoapi.dto.UserDto;
+import com.guilherme.todo.todoapi.mapper.UserMapper;
+import com.guilherme.todo.todoapi.model.User;
+import com.guilherme.todo.todoapi.repository.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
     }
 
     public User register(UserDto dto) {
-        User user = new User();
-        user.setName(dto.getName());
-        user.setEmail(dto.getEmail());
-        user.setPassword(passwordEncoder.encode(dto.getPassword())); // aqui sim setamos a senha
+        User user = userMapper.toEntity(dto);
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
         return userRepository.save(user);
     }
 

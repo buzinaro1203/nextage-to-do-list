@@ -1,4 +1,4 @@
-package com.guilherme.todo.todo_api.controller;
+package com.guilherme.todo.todoapi.controller;
 
 import java.util.List;
 
@@ -6,10 +6,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import com.guilherme.todo.todo_api.service.TodoService;
-import com.guilherme.todo.todo_api.model.User;
-import com.guilherme.todo.todo_api.service.UserService;
-import com.guilherme.todo.todo_api.dto.TodoDTO;
+import com.guilherme.todo.todoapi.dto.TodoDTO;
+import com.guilherme.todo.todoapi.model.User;
+import com.guilherme.todo.todoapi.service.TodoService;
+import com.guilherme.todo.todoapi.service.UserService;
 
 @RestController
 @RequestMapping("/api/todos")

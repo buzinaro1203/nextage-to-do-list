@@ -1,4 +1,4 @@
-package com.guilherme.todo.todo_api.config;
+package com.guilherme.todo.todoapi.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.guilherme.todo.todo_api.service.UserService;
+import com.guilherme.todo.todoapi.service.UserService;
 
 @Configuration
 public class SecurityConfig {

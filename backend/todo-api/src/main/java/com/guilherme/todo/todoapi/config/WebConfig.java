@@ -1,4 +1,4 @@
-package com.guilherme.todo.todo_api.config;
+package com.guilherme.todo.todoapi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
