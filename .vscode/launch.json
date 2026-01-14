@@ -3,16 +3,23 @@
   "configurations": [
     {
       "type": "java",
+      "name": "TodoApiApplication",
+      "request": "launch",
+      "mainClass": "com.guilherme.todo.todoapi.TodoApiApplication",
+      "projectName": "todo-api"
+    },
+    {
+      "type": "java",
       "name": "Executar Todo API",
       "request": "launch",
       "mainClass": "com.guilherme.todo.todo_api.TodoApiApplication",
       "projectName": "todo-api",
       "env": {
-        "DB_HOST": "hopper.proxy.rlwy.net",
-        "DB_PORT": "48506",
-        "DB_NAME": "railway",
+        "DB_HOST": "LOCALHOST",
+        "DB_PORT": "3306",
+        "DB_NAME": "todolist",
         "DB_USERNAME": "root",
-        "DB_PASSWORD": "DPCoVliSxhLivqaDMLcuqDzRyfFsTHOE",
+        "DB_PASSWORD": "131224@Ghb"
       }
     }
   ]
