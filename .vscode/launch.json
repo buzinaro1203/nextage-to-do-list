@@ -12,7 +12,7 @@
       "type": "java",
       "name": "Executar Todo API",
       "request": "launch",
-      "mainClass": "com.guilherme.todo.todo_api.TodoApiApplication",
+      "mainClass": "com.guilherme.todo.todoapi.TodoApiApplication",
       "projectName": "todo-api",
       "env": {
         "DB_HOST": "LOCALHOST",

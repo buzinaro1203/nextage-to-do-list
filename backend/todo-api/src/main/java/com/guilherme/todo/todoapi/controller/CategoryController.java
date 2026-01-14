@@ -1,6 +1,6 @@
 package com.guilherme.todo.todoapi.controller;
 
-import java.util.List;
+// import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -34,10 +34,10 @@ public class CategoryController {
   }
 
   // Listar todas
-  @GetMapping
-  public ResponseEntity<List<Category>> getAllCategories() {
-    return ResponseEntity.ok(categoryRepository.findAll());
-  }
+  // @GetMapping
+  // public ResponseEntity<List<Category>> getAllCategories() {
+  // return ResponseEntity.ok(categoryRepository.findAll());
+  // }
 
   // Buscar por ID
   @GetMapping("/{id}")

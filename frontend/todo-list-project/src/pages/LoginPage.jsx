@@ -35,7 +35,11 @@ function LoginPage() {
         alert("As senhas não estão iguais");
       }
     } catch (err) {
-      alert(err.response?.data?.message || "Erro ao registrar usuário");
+      const msg =
+        err.response?.data?.message ||
+        err.response?.data ||
+        "Erro ao registrar usuário";
+      alert(msg);
     } finally {
       hideLoading();
     }
@@ -61,6 +65,7 @@ function LoginPage() {
 
       alert(
         err.response?.data?.message ||
+          err.response?.data ||
           "Erro ao fazer login, verifique suas credenciais"
       );
     } finally {

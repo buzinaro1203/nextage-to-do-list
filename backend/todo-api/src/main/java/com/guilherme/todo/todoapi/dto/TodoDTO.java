@@ -13,6 +13,8 @@ public class TodoDTO {
   private LocalDate completedAt;
   private Long userId;
   private String userEmail;
+  private Long categoryId;
+  private String categoryName;
 
   /**
    * @return the userId
@@ -83,9 +85,6 @@ public class TodoDTO {
   public void setCompletedAt(LocalDate completedAt) {
     this.completedAt = completedAt;
   }
-
-  private Long categoryId; // apenas o id da categoria
-  private String categoryName; // opcional, se quiser enviar o nome da categoria
 
   // Construtores
   public TodoDTO() {

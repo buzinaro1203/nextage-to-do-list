@@ -20,16 +20,16 @@ import com.guilherme.todo.todoapi.service.UserService;
 public class SecurityConfig {
 
   // Bean que converte o UserService em UserDetailsService
-  @Bean
-  public UserDetailsService userDetailsService(UserService userService) {
-    return username -> userService.findByEmail(username)
-        .map(user -> org.springframework.security.core.userdetails.User.builder()
-            .username(user.getEmail())
-            .password(user.getPassword())
-            .roles("USER") // se tiver roles diferentes, ajuste aqui
-            .build())
-        .orElseThrow(() -> new RuntimeException("User not found"));
-  }
+  // @Bean
+  // public UserDetailsService userDetailsService(UserService userService) {
+  // return username -> userService.findByEmail(username)
+  // .map(user -> org.springframework.security.core.userdetails.User.builder()
+  // .username(user.getEmail())
+  // .password(user.getPassword())
+  // .roles("USER") // se tiver roles diferentes, ajuste aqui
+  // .build())
+  // .orElseThrow(() -> new RuntimeException("User not found"));
+  // }
 
   // PasswordEncoder
   @Bean
