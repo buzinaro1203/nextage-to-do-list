@@ -39,8 +39,9 @@ public class TodoService {
   public TodoDTO createTodoForUser(TodoDTO dto, User user) {
     Category category = null;
 
-    if (dto.getCategoryId() != null) {
-      category = categoryRepository.findById(dto.getCategoryId())
+    Long categoryId = dto.getCategoryId();
+    if (categoryId != null) {
+      category = categoryRepository.findById(categoryId)
           .orElseThrow(() -> new ResourceNotFoundException("Categoria não encontrada"));
     }
     Todo todo = todoMapper.toEntity(dto, category, user);
@@ -59,6 +60,9 @@ public class TodoService {
 
   // Atualiza um todo de um usuário (valida que pertence ao usuário)
   public TodoDTO updateTodo(Long id, TodoDTO dto, User user) {
+    if (id == null) {
+      throw new IllegalArgumentException("ID não pode ser nulo");
+    }
     return todoRepository.findById(id)
         .map(todo -> {
           if (!todo.getUser().getId().equals(user.getId())) {
@@ -84,6 +88,9 @@ public class TodoService {
 
   // Deleta um todo de um usuário
   public void deleteTodo(Long id, User user) {
+    if (id == null) {
+      throw new IllegalArgumentException("ID não pode ser nulo");
+    }
     Todo todo = todoRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Tarefa não encontrada"));
     if (!todo.getUser().getId().equals(user.getId())) {

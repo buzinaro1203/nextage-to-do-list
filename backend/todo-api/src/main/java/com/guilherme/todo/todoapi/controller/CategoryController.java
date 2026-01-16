@@ -29,6 +29,9 @@ public class CategoryController {
   // Criar nova categoria
   @PostMapping
   public ResponseEntity<Category> createCategory(@RequestBody Category category) {
+    if (category == null) {
+      return ResponseEntity.badRequest().build();
+    }
     Category savedCategory = categoryRepository.save(category);
     return ResponseEntity.ok(savedCategory);
   }
@@ -42,6 +45,9 @@ public class CategoryController {
   // Buscar por ID
   @GetMapping("/{id}")
   public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
+    if (id == null) {
+      return ResponseEntity.badRequest().build();
+    }
     Optional<Category> category = categoryRepository.findById(id);
     return category.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
   }
@@ -49,6 +55,9 @@ public class CategoryController {
   // Atualizar categoria
   @PutMapping("/{id}")
   public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody Category categoryDetails) {
+    if (id == null) {
+      return ResponseEntity.badRequest().build();
+    }
     return categoryRepository.findById(id)
         .map(category -> {
           category.setName(categoryDetails.getName());
@@ -61,6 +70,9 @@ public class CategoryController {
   // Deletar categoria
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+    if (id == null) {
+      return ResponseEntity.badRequest().build();
+    }
     return categoryRepository.findById(id)
         .map(category -> {
           categoryRepository.delete(category);
