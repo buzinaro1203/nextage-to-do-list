@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.guilherme.todo.todoapi.dto.AiSuggestion;
 import com.guilherme.todo.todoapi.service.AiService;
 
 @RestController
@@ -19,7 +20,7 @@ public class AiController {
 
     // Exemplo de uso: GET /api/ai/chat?message=Olá
     @GetMapping("/chat")
-    public String chat(@RequestParam String message) {
+    public AiSuggestion chat(@RequestParam String message) {
         return aiService.chat(message);
     }
 }

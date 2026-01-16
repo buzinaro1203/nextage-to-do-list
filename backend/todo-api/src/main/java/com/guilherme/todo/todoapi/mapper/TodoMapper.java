@@ -1,5 +1,6 @@
 package com.guilherme.todo.todoapi.mapper;
 
+import com.guilherme.todo.todoapi.dto.AiSuggestion;
 import com.guilherme.todo.todoapi.dto.TodoDTO;
 import com.guilherme.todo.todoapi.model.Category;
 import com.guilherme.todo.todoapi.model.Todo;
@@ -39,6 +40,20 @@ public class TodoMapper {
     todo.setCompleted(dto.isCompleted());
     todo.setDueDate(dto.getDueDate());
     todo.setCompletedAt(dto.getCompletedAt());
+    todo.setCategory(category);
+    todo.setUser(user);
+
+    return todo;
+  }
+
+  public Todo toEntity(AiSuggestion suggestion, Category category, User user) {
+    if (suggestion == null)
+      return null;
+
+    Todo todo = new Todo();
+    todo.setTitle(suggestion.title());
+    todo.setDescription(suggestion.description());
+    todo.setDueDate(java.time.LocalDate.parse(suggestion.dueDate()));
     todo.setCategory(category);
     todo.setUser(user);
 
