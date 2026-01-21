@@ -30,6 +30,7 @@ public class TodoService {
   }
 
   public List<TodoDTO> getTodosForUser(User user) {
+
     return todoRepository.findByUser(user)
         .stream()
         .map(todoMapper::toDTO)

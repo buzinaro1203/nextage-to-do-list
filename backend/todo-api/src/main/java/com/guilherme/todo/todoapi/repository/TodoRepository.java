@@ -9,4 +9,6 @@ import com.guilherme.todo.todoapi.model.User;
 
 public interface TodoRepository extends JpaRepository<Todo, Long> {
   List<Todo> findByUser(User user);
+
+  List<Todo> findByUserAndDueDate(User user, java.time.LocalDate dueDate);
 }

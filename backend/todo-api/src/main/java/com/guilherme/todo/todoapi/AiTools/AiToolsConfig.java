@@ -1,5 +1,6 @@
 package com.guilherme.todo.todoapi.AiTools;
 
+import java.util.List;
 import java.util.function.Function;
 
 import org.springframework.context.annotation.Bean;
@@ -22,4 +23,11 @@ public class AiToolsConfig {
   public Function<AiSuggestion, TodoDTO> parseAiSuggestionToTodo() {
     return aiTools::parseAiSuggestionToTodo;
   }
+
+  @Description("A funçao serve para buscar todas as tarefas de um usuario por data de vencimento")
+  @Bean
+  public Function<DateFilter, List<TodoDTO>> getTodosPerDate() {
+    return aiTools::getTodosPerDate;
+  }
+
 }
