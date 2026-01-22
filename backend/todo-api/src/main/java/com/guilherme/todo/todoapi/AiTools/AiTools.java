@@ -47,7 +47,9 @@ public class AiTools {
   public List<TodoDTO> getTodosPerDate(DateFilter request) {
     String email = SecurityContextHolder.getContext().getAuthentication().getName();
     User user = userRepository.findByEmail(email).orElseThrow();
-    java.time.LocalDate localDate = java.time.LocalDate.parse(request.date());
-    return todoRepository.findByUserAndDueDate(user, localDate).stream().map(todoMapper::toDTO).toList();
+    java.time.LocalDate startDate = java.time.LocalDate.parse(request.StartDate());
+    java.time.LocalDate endDate = java.time.LocalDate.parse(request.EndDate());
+    return todoRepository.findByUserAndDueDateBetween(user, startDate, endDate).stream().map(todoMapper::toDTO)
+        .toList();
   }
 }

@@ -19,7 +19,7 @@ public class AiService {
         return chatClient.prompt()
                 .system("Você é um assistente que ajuda a criar tarefas para um aplicativo"
                         + " Hoje é " + java.time.LocalDate.now() + "."
-                        + " Você tem acesso a uma ferramenta para salvar tarefas e uma para buscar tarefas por data. Use-a quando necessário e confirme a criação ao usuário."
+                        + " Você tem acesso a uma ferramenta para salvar tarefas e uma para buscar tarefas por intervalo de data. Use-a quando necessário e confirme a criação ao usuário."
                         + " Regras:"
                         + " 1. Para dueDate: Use ESTRITAMENTE o formato YYYY-MM-DD. Se o usuário mencionar horas, ignore-as e use apenas a data referida."
                         + " 2. Para categoryName: Classifique estritamente entre: Pessoal, Trabalho, Estudos ou Outros."
